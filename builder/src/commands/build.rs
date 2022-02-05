@@ -11,11 +11,12 @@ use anyhow::{format_err, Result};
 use futures::StreamExt;
 
 use crate::lists::Lists;
-use tokenlist::{TokenInfo, TokenList};
+use tokenlist::{TagDetails, TokenInfo, TokenList};
 
 pub async fn handler(lists: &Lists) -> Result<()> {
     let mut tokens: HashMap<(u32, String), TokenInfo> = Default::default();
     let mut chains: HashSet<u32> = HashSet::new();
+    let mut tags: HashMap<String, TagDetails> = Default::default();
 
     let mut lists_iter = futures::stream::iter(lists.lists.clone().into_iter());
     while let Some(meta) = lists_iter.next().await {
@@ -23,6 +24,10 @@ pub async fn handler(lists: &Lists) -> Result<()> {
         let list_str = std::fs::read_to_string(list_path)?;
         let token_list: TokenList = serde_json::from_str(&list_str)
             .map_err(|e| format_err!("Error parsing {}: {}", &meta.id, e))?;
+
+        token_list.tags.into_iter().for_each(|(tag, tag_details)| {
+            tags.insert(tag, tag_details);
+        });
 
         token_list.tokens.iter().for_each(|token| {
             chains.insert(token.chain_id);
@@ -39,7 +44,7 @@ pub async fn handler(lists: &Lists) -> Result<()> {
         name: lists.meta.name.clone(),
         tokens: tokens.values().cloned().collect(),
         timestamp: now,
-        tags: Default::default(),
+        tags,
         logo_uri: Url::from_str("https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png")?,
     };
 
