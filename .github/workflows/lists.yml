@@ -3,6 +3,8 @@ name: Generate token lists
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "0 * * * *"
 
 env:
   CARGO_TERM_COLOR: always
