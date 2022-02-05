@@ -1,6 +1,6 @@
-# Certified Token List by CLB
+# Token List Builder (TLB) by CLB
 
-The Certified Token List is a token list which combines other token lists.
+The Token List Builder is used to build the Certified Token List, a token list composed of multiple other token lists.
 
 ## License
 

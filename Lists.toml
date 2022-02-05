@@ -3,6 +3,10 @@ name = "Certified Token List"
 
 # Lists are evaluated from top to bottom.
 [[lists]]
+id = "saros-lp-mainnet"
+url = "https://raw.githubusercontent.com/coin98/saros-lp-token-list/master/lists/saros-lp.mainnet.json"
+
+[[lists]]
 id = "sencha-lp-mainnet"
 url = "https://raw.githubusercontent.com/SenchaHQ/sencha-lp-token-list/master/lists/sencha-lp.mainnet-beta.json"
 
