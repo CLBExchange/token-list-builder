@@ -20,6 +20,7 @@
 //! # License
 //!
 //! The `pubkey` crate is licensed under the Apache 2.0 License.
+
 use serde::{self, Deserialize, Deserializer, Serializer};
 pub use solana_program::pubkey::Pubkey;
 use std::str::FromStr;

@@ -44,8 +44,7 @@ pub struct TokenExtensions {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub website: Option<String>,
     /// The bridge contract.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "bridgeContract")]
+    #[serde(skip_serializing_if = "Option::is_none", rename = "bridgeContract")]
     pub bridge_contract: Option<String>,
     /// The asset contract.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -91,6 +90,15 @@ pub struct TokenExtensions {
     /// Brief description of the asset.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+
+    /// Underlying tokens backing this token.
+    /// For example: if this is a Uniswap LP token, this would be the two tokens.
+    #[serde(skip_serializing_if = "Option::is_none", rename = "underlyingTokens")]
+    pub underlying_tokens: Option<Vec<String>>,
+
+    /// The protocol or app that this token originates from.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source: Option<String>,
 
     /// Unknown extensions.
     #[serde(flatten)]
