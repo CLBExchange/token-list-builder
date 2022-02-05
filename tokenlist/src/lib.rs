@@ -9,7 +9,7 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Deserializer, Serialize};
 use serde_json::Value;
 use solana_program::pubkey::Pubkey;
-use std::collections::HashMap;
+use std::{collections::HashMap, str::FromStr};
 use url::Url;
 
 fn ok_or_default<'a, T, D>(deserializer: D) -> Result<T, D::Error>
@@ -19,6 +19,10 @@ where
 {
     let v: Value = Deserialize::deserialize(deserializer)?;
     Ok(T::deserialize(v).unwrap_or_default())
+}
+
+fn default_token_list_logo() -> Url {
+    Url::from_str("https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png").unwrap()
 }
 
 /// ID of a Solana chain.
@@ -102,8 +106,12 @@ pub struct TokenInfo {
     pub symbol: String,
     /// Logo of the token. Highly recommended.
     /// If the provided logo is invalid, this value is discarded.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "logoURI", deserialize_with = "ok_or_default")]
+    #[serde(
+        deserialize_with = "ok_or_default",
+        default = "Option::default",
+        skip_serializing_if = "Option::is_none",
+        rename = "logoURI"
+    )]
     pub logo_uri: Option<Url>,
     /// Number of decimals of the token.
     pub decimals: u8,
@@ -136,7 +144,7 @@ pub struct TokenList {
     /// Name of the token list.
     pub name: String,
     /// Logo URI of the token list.
-    #[serde(rename = "logoURI")]
+    #[serde(default = "default_token_list_logo", rename = "logoURI")]
     pub logo_uri: Url,
     /// All tags that may be referenced in the token list.
     pub tags: HashMap<String, TagDetails>,

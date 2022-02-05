@@ -7,7 +7,7 @@ use std::{
     time::SystemTime,
 };
 
-use anyhow::Result;
+use anyhow::{format_err, Result};
 use futures::StreamExt;
 
 use crate::lists::Lists;
@@ -21,7 +21,8 @@ pub async fn handler(lists: &Lists) -> Result<()> {
     while let Some(meta) = lists_iter.next().await {
         let list_path = PathBuf::from(format!("lists/{}.json", meta.id));
         let list_str = std::fs::read_to_string(list_path)?;
-        let token_list: TokenList = serde_json::from_str(&list_str)?;
+        let token_list: TokenList = serde_json::from_str(&list_str)
+            .map_err(|e| format_err!("Error parsing {}: {}", &meta.id, e))?;
 
         token_list.tokens.iter().for_each(|token| {
             chains.insert(token.chain_id);
