@@ -35,5 +35,13 @@ id = "sunny-pool-devnet"
 url = "https://raw.githubusercontent.com/SunnyAggregator/sunny-pool-list/master/lists/sunny-pool.devnet.json"
 
 [[lists]]
+id = "quarry-mainnet"
+url = "https://raw.githubusercontent.com/QuarryProtocol/rewarder-list-build/master/mainnet-beta/token-list.json"
+
+[[lists]]
+id = "quarry-devnet"
+url = "https://raw.githubusercontent.com/QuarryProtocol/rewarder-list-build/master/devnet/token-list.json"
+
+[[lists]]
 id = "solana"
 url = "https://raw.githubusercontent.com/solana-labs/token-list/main/src/tokens/solana.tokenlist.json"
