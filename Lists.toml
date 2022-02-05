@@ -1,0 +1,35 @@
+[meta]
+name = "Certified Token List"
+
+# Lists are evaluated from top to bottom.
+[[lists]]
+id = "sencha-lp-mainnet"
+url = "https://raw.githubusercontent.com/SenchaHQ/sencha-lp-token-list/master/lists/sencha-lp.mainnet-beta.json"
+
+[[lists]]
+id = "saber-lp-mainnet"
+url = "https://raw.githubusercontent.com/saber-hq/saber-lp-token-list/master/lists/saber-lp.mainnet-beta.json"
+
+[[lists]]
+id = "saber-wrapped-mainnet"
+url = "https://raw.githubusercontent.com/saber-hq/saber-lp-token-list/master/lists/saber-wrapped.mainnet-beta.json"
+
+[[lists]]
+id = "saber-lp-devnet"
+url = "https://raw.githubusercontent.com/saber-hq/saber-lp-token-list/master/lists/saber-lp.devnet.json"
+
+[[lists]]
+id = "saber-wrapped-devnet"
+url = "https://raw.githubusercontent.com/saber-hq/saber-lp-token-list/master/lists/saber-wrapped.devnet.json"
+
+[[lists]]
+id = "sunny-pool-mainnet"
+url = "https://raw.githubusercontent.com/SunnyAggregator/sunny-pool-list/master/lists/sunny-pool.mainnet-beta.json"
+
+[[lists]]
+id = "sunny-pool-devnet"
+url = "https://raw.githubusercontent.com/SunnyAggregator/sunny-pool-list/master/lists/sunny-pool.devnet.json"
+
+[[lists]]
+id = "solana"
+url = "https://raw.githubusercontent.com/solana-labs/token-list/main/src/tokens/solana.tokenlist.json"

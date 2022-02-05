@@ -1,0 +1,60 @@
+name: Generate token lists
+
+on:
+  push:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_TOOLCHAIN: "1.58.1"
+
+jobs:
+  generate-token-lists:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          override: true
+          profile: minimal
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v1
+      - run: cargo run update
+      - run: cargo run build
+      - name: Deploy Token Lists
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.TOKEN_LISTS_DEPLOY_KEY }}
+          external_repository: CLBExchange/token-lists
+          publish_branch: master
+          publish_dir: ./lists/
+          commit_message: ${{ github.event.head_commit.message }}
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
+
+  generate-certified-token-list:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          override: true
+          profile: minimal
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v1
+      - run: cargo run update
+      - run: cargo run build
+      - name: Deploy Certified Token List
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.CERTIFIED_TOKEN_LIST_DEPLOY_KEY }}
+          external_repository: CLBExchange/certified-token-list
+          publish_branch: master
+          publish_dir: ./out/
+          commit_message: ${{ github.event.head_commit.message }}
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"

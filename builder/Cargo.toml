@@ -1,0 +1,28 @@
+[package]
+name = "builder"
+version = "0.1.0"
+description = "CLI tool for building combined token lists."
+homepage = "https://clb.exchange"
+repository = "https://github.com/CLBExchange/certified-token-list"
+authors = ["Dondi de la Cruz <dondi@clb.exchange>"]
+license = "Apache-2.0"
+edition = "2021"
+keywords = ["solana", "token", "spl"]
+
+[dependencies]
+clap = { version = "3.0.13", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0.78"
+toml = "0.5.8"
+tokio = { version = "1.14.0", features = ["full"] }
+anyhow = "1.0.42"
+reqwest = { version = "0.11.9", default-features = false, features = [
+    "rustls-tls"
+] }
+futures = "0.3.19"
+chrono = { version = "0.4", features = ["serde"] }
+tokenlist = { version = "0.1.0", path = "../tokenlist" }
+
+[[bin]]
+name = "builder"
+path = "src/main.rs"

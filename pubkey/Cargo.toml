@@ -1,0 +1,18 @@
+[package]
+name = "pubkey"
+version = "0.1.0"
+description = "Serde Solana Pubkey serializer/deserializer."
+homepage = "https://clb.exchange"
+repository = "https://github.com/CLBExchange/certified-token-liist"
+authors = ["Dondi de la Cruz <dondi@clb.exchange>"]
+license = "Apache-2.0"
+edition = "2021"
+keywords = ["solana", "token", "pubkey", "serde"]
+
+[lib]
+name = "pubkey"
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+solana-program = "^1.9"
