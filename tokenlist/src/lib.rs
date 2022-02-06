@@ -9,7 +9,7 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Deserializer, Serialize};
 use serde_json::Value;
 use solana_program::pubkey::Pubkey;
-use std::{collections::HashMap, str::FromStr};
+use std::{collections::BTreeMap, str::FromStr};
 use url::Url;
 
 fn ok_or_default<'a, T, D>(deserializer: D) -> Result<T, D::Error>
@@ -102,7 +102,7 @@ pub struct TokenExtensions {
 
     /// Unknown extensions.
     #[serde(flatten)]
-    pub extra: HashMap<String, Value>,
+    pub extra: BTreeMap<String, Value>,
 }
 
 /// Token information.
@@ -137,6 +137,30 @@ pub struct TokenInfo {
     pub extensions: Option<TokenExtensions>,
 }
 
+impl Eq for TokenInfo {}
+
+impl PartialEq for TokenInfo {
+    fn eq(&self, other: &Self) -> bool {
+        self.address == other.address && self.chain_id == other.chain_id
+    }
+}
+
+impl PartialOrd for TokenInfo {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for TokenInfo {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        if self.chain_id == other.chain_id {
+            self.address.to_string().cmp(&other.address.to_string())
+        } else {
+            self.chain_id.cmp(&other.chain_id)
+        }
+    }
+}
+
 impl TokenInfo {
     /// Removes the tags and extensions from the [TokenInfo].
     /// This is useful for making smaller token lists.
@@ -164,7 +188,7 @@ pub struct TokenList {
     #[serde(default = "default_token_list_logo", rename = "logoURI")]
     pub logo_uri: Url,
     /// All tags that may be referenced in the token list.
-    pub tags: HashMap<String, TagDetails>,
+    pub tags: BTreeMap<String, TagDetails>,
     /// When the token list was last updated.
     pub timestamp: DateTime<Utc>,
     /// The tokens in the token list.
@@ -187,7 +211,7 @@ impl TokenList {
 
     /// Strips extraneous metadata from the token list.
     pub fn simplify(&mut self) {
-        self.tags = HashMap::new();
+        self.tags = BTreeMap::new();
         self.tokens = self
             .tokens
             .iter()

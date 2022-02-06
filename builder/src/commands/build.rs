@@ -1,7 +1,7 @@
 use chrono::prelude::{DateTime, Utc};
 use reqwest::Url;
 use std::{
-    collections::{HashMap, HashSet},
+    collections::{BTreeMap, HashSet},
     path::PathBuf,
     str::FromStr,
     time::SystemTime,
@@ -14,9 +14,9 @@ use crate::lists::Lists;
 use tokenlist::{TagDetails, TokenInfo, TokenList};
 
 pub async fn handler(lists: &Lists) -> Result<()> {
-    let mut tokens: HashMap<(u32, String), TokenInfo> = Default::default();
+    let mut tokens: BTreeMap<(u32, String), TokenInfo> = Default::default();
     let mut chains: HashSet<u32> = HashSet::new();
-    let mut tags: HashMap<String, TagDetails> = Default::default();
+    let mut tags: BTreeMap<String, TagDetails> = Default::default();
 
     let mut lists_iter = futures::stream::iter(lists.lists.clone().into_iter());
     while let Some(meta) = lists_iter.next().await {
@@ -40,9 +40,11 @@ pub async fn handler(lists: &Lists) -> Result<()> {
     let now = SystemTime::now();
     let now: DateTime<Utc> = now.into();
 
+    let mut sorted_tokens: Vec<TokenInfo> = tokens.values().cloned().collect();
+    sorted_tokens.sort();
     let final_list: TokenList = TokenList {
         name: lists.meta.name.clone(),
-        tokens: tokens.values().cloned().collect(),
+        tokens: sorted_tokens,
         timestamp: now,
         tags,
         logo_uri: Url::from_str("https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png")?,
