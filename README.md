@@ -2,6 +2,11 @@
 
 The Token List Builder is used to build the Certified Token List, a token list composed of multiple other token lists.
 
+Related repos:
+
+- [Certified Token List](https://github.com/CLBExchange/certified-token-list)
+- [Solana Token Lists](https://github.com/CLBExchange/token-lists)
+
 ## The Certified© Token List
 
 The Certified© Token List (CTL) is a token list composed of all token lists defined in `Lists.toml`.
