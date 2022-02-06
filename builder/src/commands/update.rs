@@ -10,7 +10,8 @@ use crate::{
 async fn fetch_token_list(meta: TokenListMeta) -> Result<()> {
     println!("Fetching {} from {}", meta.id, meta.url);
     let resolver = URLTokenListResolver::from_str(&meta.url)?;
-    let list = resolver.resolve().await?;
+    let mut list = resolver.resolve().await?;
+    list.tokens.sort();
     println!("Fetched {} with {} tokens", meta.id, list.tokens.len());
     std::fs::write(
         format!("lists/{}.json", meta.id),
