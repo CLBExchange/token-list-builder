@@ -140,7 +140,7 @@ pub struct TokenInfo {
 impl TokenInfo {
     /// Removes the tags and extensions from the [TokenInfo].
     /// This is useful for making smaller token lists.
-    pub fn remove_tags_and_extensions(&mut self) {
+    pub fn simplify(&mut self) {
         self.tags = None;
         self.extensions = None;
     }
@@ -169,4 +169,33 @@ pub struct TokenList {
     pub timestamp: DateTime<Utc>,
     /// The tokens in the token list.
     pub tokens: Vec<TokenInfo>,
+}
+
+impl TokenList {
+    /// Filters the tokens in the token list by the given chain ID.
+    pub fn filter_chain(&self, chain_id: u32) -> TokenList {
+        TokenList {
+            tokens: self
+                .tokens
+                .clone()
+                .into_iter()
+                .filter(|t| t.chain_id == chain_id)
+                .collect(),
+            ..self.clone()
+        }
+    }
+
+    /// Strips extraneous metadata from the token list.
+    pub fn simplify(&mut self) {
+        self.tags = HashMap::new();
+        self.tokens = self
+            .tokens
+            .iter()
+            .map(|token| {
+                let mut token = token.clone();
+                token.simplify();
+                token
+            })
+            .collect();
+    }
 }

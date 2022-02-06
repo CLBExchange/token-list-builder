@@ -52,12 +52,28 @@ pub async fn handler(lists: &Lists) -> Result<()> {
     let out = PathBuf::from("out/token-list.json".to_string());
     std::fs::write(out, serde_json::to_string(&final_list)?)?;
 
+    let out_simple = PathBuf::from("out/token-list.simple.json".to_string());
+
+    let mut simple_list = final_list.clone();
+    simple_list.name = format!("{} (Simple)", simple_list.name);
+    simple_list.simplify();
+    std::fs::write(out_simple, serde_json::to_string(&simple_list)?)?;
+
     for chain_id in chains.iter() {
         std::fs::create_dir_all(format!("out/{}/", chain_id))?;
         for token in tokens.values().filter(|t| t.chain_id == *chain_id) {
             let out = PathBuf::from(format!("out/{}/{}.json", chain_id, token.address));
             std::fs::write(out, serde_json::to_string(&token)?)?;
         }
+
+        std::fs::write(
+            format!("out/{}/_certified-token-list.json", chain_id),
+            serde_json::to_string(&final_list.clone().filter_chain(*chain_id))?,
+        )?;
+        std::fs::write(
+            format!("out/{}/_certified-token-list.simple.json", chain_id),
+            serde_json::to_string(&simple_list.clone().filter_chain(*chain_id))?,
+        )?;
     }
 
     Ok(())
