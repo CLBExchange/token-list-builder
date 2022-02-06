@@ -25,6 +25,8 @@ jobs:
       - uses: Swatinem/rust-cache@v1
       - run: cargo run update
       - run: cargo run build
+      - run: cp docs/README-lists.md lists/README.md
+      - run: cp LICENSE.txt lists/LICENSE.txt
       - name: Deploy Token Lists
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -50,6 +52,8 @@ jobs:
       - uses: Swatinem/rust-cache@v1
       - run: cargo run update
       - run: cargo run build
+      - run: cp docs/README-ctl.md out/README.md
+      - run: cp LICENSE.txt out/LICENSE.txt
       - name: Deploy Certified Token List
         uses: peaceiris/actions-gh-pages@v3
         with:
