@@ -137,6 +137,15 @@ pub struct TokenInfo {
     pub extensions: Option<TokenExtensions>,
 }
 
+impl TokenInfo {
+    /// Removes the tags and extensions from the [TokenInfo].
+    /// This is useful for making smaller token lists.
+    pub fn remove_tags_and_extensions(&mut self) {
+        self.tags = None;
+        self.extensions = None;
+    }
+}
+
 /// Details about what a tag is.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct TagDetails {
