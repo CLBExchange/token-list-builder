@@ -49,3 +49,7 @@ url = "https://raw.githubusercontent.com/solana-labs/token-list/main/src/tokens/
 [[lists]]
 id = "saber-tokens"
 url = "https://raw.githubusercontent.com/saber-hq/saber-registry-dist/master/data/token-list.mainnet.json"
+
+[[lists]]
+id = "saber-tokens-devnet"
+url = "https://raw.githubusercontent.com/saber-hq/saber-registry-dist/master/data/token-list.devnet.json"
