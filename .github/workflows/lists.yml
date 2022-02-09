@@ -1,6 +1,7 @@
 name: Generate token lists
 
 on:
+  workflow_dispatch: {}
   push:
     branches: [main]
   schedule:
