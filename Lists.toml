@@ -3,6 +3,10 @@ name = "Certified Token List"
 
 # Lists are evaluated from top to bottom.
 [[lists]]
+id = "sunny"
+url = "https://raw.githubusercontent.com/SunnyAggregator/sunny-token-list/master/lists/sunny-tokens-mainnet.json"
+
+[[lists]]
 id = "saros-lp-mainnet"
 url = "https://raw.githubusercontent.com/coin98/saros-lp-token-list/master/lists/saros-lp.mainnet.json"
 
