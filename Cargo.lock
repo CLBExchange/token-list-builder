@@ -169,7 +169,7 @@ checksum = "771fe0050b883fcc3ea2359b1a96bcfbc090b7116eae7c3c512c7a083fdf23d3"
 
 [[package]]
 name = "builder"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "chrono",
@@ -1093,7 +1093,7 @@ dependencies = [
 
 [[package]]
 name = "pubkey"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "serde",
  "solana-program",
@@ -1615,7 +1615,7 @@ checksum = "cda74da7e1a664f795bb1f8a87ec406fb89a02522cf6e50620d016add6dbbf5c"
 
 [[package]]
 name = "tokenlist"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "chrono",
  "pubkey",

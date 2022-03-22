@@ -1,6 +1,6 @@
 [package]
 name = "tokenlist"
-version = "0.1.0"
+version = "0.1.1"
 description = "Parses token lists according to the token list standard."
 homepage = "https://clb.exchange"
 repository = "https://github.com/CLBExchange/certified-token-list"

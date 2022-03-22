@@ -1,6 +1,6 @@
 [package]
 name = "builder"
-version = "0.1.0"
+version = "0.1.1"
 description = "CLI tool for building combined token lists."
 homepage = "https://clb.exchange"
 repository = "https://github.com/CLBExchange/certified-token-list"
