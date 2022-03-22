@@ -61,7 +61,7 @@ jobs:
           deploy_key: ${{ secrets.CERTIFIED_TOKEN_LIST_DEPLOY_KEY }}
           external_repository: CLBExchange/certified-token-list
           publish_branch: master
-          publish_dir: ./out/
+          publish_dir: out
           commit_message: ${{ github.event.head_commit.message }}
           user_name: "github-actions[bot]"
           user_email: "github-actions[bot]@users.noreply.github.com"
