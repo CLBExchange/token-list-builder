@@ -15,7 +15,7 @@ jobs:
   generate-token-lists:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
@@ -42,7 +42,7 @@ jobs:
   generate-certified-token-list:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
