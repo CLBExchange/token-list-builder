@@ -47,6 +47,10 @@ id = "saber-tokens-devnet"
 url = "https://raw.githubusercontent.com/saber-hq/saber-registry-dist/master/data/token-list.devnet.json"
 
 [[lists]]
+id = "marinade-token-list"
+url = "https://raw.githubusercontent.com/marinade-finance/marinade-token-list/main/token-list.json"
+
+[[lists]]
 id = "solana"
 url = "https://raw.githubusercontent.com/solana-labs/token-list/main/src/tokens/solana.tokenlist.json"
 
