@@ -12,19 +12,23 @@
       "aarch64-darwin"
       "x86_64-linux"
       "x86_64-darwin"
-    ] (system:
-      let
-        pkgs = import nixpkgs { inherit system; }
-          // saber-overlay.packages.${system};
-        ci = pkgs.buildEnv {
-          name = "ci";
-          paths = with pkgs;
-            [ cargo-workspaces libiconv ] ++ (lib.optionals stdenv.isDarwin
-              (with pkgs.darwin.apple_sdk.frameworks; [ openssl Security ]));
-        };
-      in {
-        packages.ci = ci;
-        devShell =
-          pkgs.mkShell { buildInputs = with pkgs; [ ci cargo-readme ]; };
-      });
+    ]
+      (system:
+        let
+          pkgs = import nixpkgs { inherit system; }
+            // saber-overlay.packages.${system};
+          ci = pkgs.buildEnv {
+            name = "ci";
+            paths = with pkgs;
+              [ cargo-workspaces libiconv ] ++ (lib.optionals stdenv.isDarwin
+                (with pkgs.darwin.apple_sdk.frameworks; [ openssl Security ]) ++ (
+                with pkgs.darwin.apple_sdk_11_0.frameworks; [ SystemConfiguration ]
+              ));
+          };
+        in
+        {
+          packages.ci = ci;
+          devShell =
+            pkgs.mkShell { buildInputs = with pkgs; [ ci cargo-readme ]; };
+        });
 }
