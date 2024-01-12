@@ -19,7 +19,7 @@ jobs:
 
       - uses: cachix/install-nix-action@v20
       - name: Setup Cachix
-        uses: cachix/cachix-action@v12
+        uses: cachix/cachix-action@v14
         with:
           name: clb
           extraPullNames: saber
